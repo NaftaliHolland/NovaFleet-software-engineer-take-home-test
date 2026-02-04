@@ -17,7 +17,6 @@ class InspectionSerializer(serializers.ModelSerializer):
             "notes",
         ]
 
-
     def validate_status(self, value):
         if value not in [choice[0] for choice in STATUS_CHOICES]:
             raise serializers.ValidationError(
