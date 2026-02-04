@@ -1,15 +1,11 @@
-from rest_framework import serializers
-from .models import Inspection
 from django.utils import timezone
+from rest_framework import serializers
+
+from .models import STATUS_CHOICES, Inspection
+
 
 class InspectionSerializer(serializers.ModelSerializer):
-    status = serializers.ChoiceField(
-        choices=["scheduled", "passed", "failed"],
-        error_messages={
-            "invalid_status": "Status must be one of: scheduled, passed, or failed."
-
-        }
-    )
+    status = serializers.CharField()
 
     class Meta:
         model = Inspection
@@ -20,6 +16,15 @@ class InspectionSerializer(serializers.ModelSerializer):
             "status",
             "notes",
         ]
+
+
+    def validate_status(self, value):
+        if value not in STATUS_CHOICES:
+            raise serializers.ValidationError(
+                "Status host to be one of; scheduled, passed, or failed"
+            )
+
+        return value
 
     def validate_inspection_date(self, value):
         today = timezone.localdate()

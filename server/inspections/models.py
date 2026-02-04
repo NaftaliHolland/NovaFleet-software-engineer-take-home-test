@@ -1,12 +1,13 @@
 from django.db import models
 
 
+STATUS_CHOICES = [
+    ("scheduled", "Scheduled"),
+    ("passed", "Passed"),
+    ("failed", "Failed"),
+]
+
 class Inspection(models.Model):
-    STATUS_CHOICES = [
-        ("scheduled", "Scheduled"),
-        ("passed", "Passed"),
-        ("failed", "Failed"),
-    ]
 
     vehicle_plate = models.CharField(max_length=20)
     inspection_date = models.DateField()
