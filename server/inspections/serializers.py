@@ -19,9 +19,9 @@ class InspectionSerializer(serializers.ModelSerializer):
 
 
     def validate_status(self, value):
-        if value not in STATUS_CHOICES:
+        if value not in [choice[0] for choice in STATUS_CHOICES]:
             raise serializers.ValidationError(
-                "Status host to be one of; scheduled, passed, or failed"
+                "Status has to be one of; scheduled, passed, or failed"
             )
 
         return value
