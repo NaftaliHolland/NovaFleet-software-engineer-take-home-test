@@ -1,39 +1,41 @@
-from rest_framework.test import APITestCase
-from rest_framework import status
+from datetime import timedelta
+
 from django.urls import reverse
+from django.utils import timezone
+from rest_framework import status
+from rest_framework.test import APITestCase
+
+from .models import Inspection
 
 
 class InspectionTests(APITestCase):
-    def test_inspection_creation_valid(self):
-        """
-        test inspection creation with valid data
-        """
-        url = reverse('inspection-list')
-
-        data = {
+    def setUp(self):
+        self.url = reverse('inspection-list')
+        self.valid_data = {
             "vehicle_plate": "KDM200R",
-            "inspection_date": "2026-03-22",
+            "inspection_date": (timezone.localdate() + timedelta(days=30)).isoformat(),
             "status": "scheduled",
             "notes": "First inspection"
         }
 
-        response = self.client.post(url, data, format='json')
+    def test_inspection_creation_valid(self):
+        """
+        test inspection creation with valid data
+        """
+        response = self.client.post(self.url, self.valid_data, format='json')
 
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+        self.assertEqual(Inspection.objects.count(), 1)
 
     def test_inspection_creation_invalid_date(self):
         """
         Test creation of inspections with past dates are rejected
         """
-        url = reverse('inspection-list')
+        past_date = (timezone.localdate() - timedelta(days=1)).isoformat()
+        data = {**self.valid_data, "inspection_date": past_date}
 
-        data = {
-            "vehicle_plate": "KDM200R",
-            "inspection_date": "2022-03-22",
-            "status": "scheduled",
-            "notes": "invalid inspection"
-        }
-
-        response = self.client.post(url, data, format='json')
+        response = self.client.post(self.url, data, format='json')
 
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+        self.assertEqual(Inspection.objects.count(), 0)
+
