@@ -41,3 +41,48 @@ README.md should include:
 2. Description of any challenges I encountered during development
 3. List of features I would add with additional time
 
+---
+
+## Setup Instructions
+
+### 1. Clone the Repository
+
+```bash
+git clone https://github.com/NaftaliHolland/NovaFleet-software-engineer-take-home-test.git
+cd NovaFleet-software-engineer-take-home-test
+```
+
+### 2. Backend Setup (Django)
+
+```bash
+cd server
+python3 -m venv venv
+source venv/bin/activate
+pip install -r requirements.txt
+python manage.py migrate
+python manage.py runserver
+```
+
+Backend runs at: `http://localhost:8000`
+
+### 3. Frontend Setup (React + Vite)
+
+Open a **new terminal** and run:
+
+```bash
+cd client
+npm install
+npm run dev
+```
+
+Frontend runs at: `http://localhost:5173`
+
+---
+
+## Testing
+```bash
+cd server
+source venv/bin/activate
+python manage.py test
+```
+
