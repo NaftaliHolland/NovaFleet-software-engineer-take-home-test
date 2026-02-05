@@ -89,3 +89,19 @@ source venv/bin/activate
 python manage.py test
 ```
 
+---
+
+# Reflection
+This project pushed me to work a bit faster than I normally do. I usually spend a lot of time thinking about the “best” way to do something (there often isn't one but I find myself here a lot), often overplanning. With the limited time I had here, I just had to get things done, and it made me realize that sometimes moving fast can be really effective. I will embrace this more.
+
+I also haven’t written many tests before, so this was a good chance to get hands-on with testing and understand how it works in Django REST Framework.
+
+I ran into some challenges figuring out where to put validation—on the serializer or the model. The status field in particular gave me trouble at first because putting validation in the serializer didn’t work as I expected. It showed me that I needed a better understanding of how DRF handles validation order, which was a valuable lesson.
+
+# Features I would add
+Given more time there are some improvements and features I would add to make the project more robust
+- Authentication
+- Filtering
+- Search
+- Pagination
+- More comprehensive testing
