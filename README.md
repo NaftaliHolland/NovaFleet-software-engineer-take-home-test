@@ -60,6 +60,9 @@ python3 -m venv venv
 source venv/bin/activate
 pip install -r requirements.txt
 python manage.py migrate
+
+*Seed some dummy data*
+python manage.py seed_inspections
 python manage.py runserver
 ```
 
